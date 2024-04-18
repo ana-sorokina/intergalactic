@@ -2,6 +2,12 @@
 
 CHANGELOG.md standards are inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0/).
 
+## [4.27.0] - 2024-06-04
+
+### Changed
+
+- `margin-top` for Slider options.
+
 ## [4.26.1] - 2024-05-28
 
 ### Changed
