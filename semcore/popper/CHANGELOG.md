@@ -2,6 +2,36 @@
 
 CHANGELOG.md standards are inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0/).
 
+## [5.37.0] - 2024-06-26
+
+### Changed
+
+- Version minor update due to children dependencies update (`@semcore/animation` [2.28.0 ~> 2.29.0], `@semcore/flex-box` [5.28.0 ~> 5.29.0], `@semcore/neighbor-location` [4.26.0 ~> 4.27.0], `@semcore/outside-click` [3.26.0 ~> 3.27.0], `@semcore/utils` [4.29.0 ~> 4.30.0], `@semcore/core` [2.26.0 ~> 2.27.0]).
+
+## [5.36.1] - 2024-06-14
+
+### Added
+
+- Possibility to open `focusable` popper by click on it (if the trigger is already focused).
+
+## [5.36.0] - 2024-06-13
+
+### Changed
+
+- Version minor update due to children dependencies update (`@semcore/animation` [2.27.2 ~> 2.28.0], `@semcore/flex-box` [5.27.2 ~> 5.28.0], `@semcore/neighbor-location` [4.25.2 ~> 4.26.0], `@semcore/outside-click` [3.25.2 ~> 3.26.0], `@semcore/utils` [4.28.2 ~> 4.29.0], `@semcore/core` [2.25.2 ~> 2.26.0]).
+
+## [5.35.7] - 2024-06-12
+
+### Changed
+
+- Version patch update due to children dependencies update (`@semcore/animation` [2.27.1 ~> 2.27.2], `@semcore/flex-box` [5.27.1 ~> 5.27.2], `@semcore/neighbor-location` [4.25.1 ~> 4.25.2], `@semcore/outside-click` [3.25.1 ~> 3.25.2], `@semcore/utils` [4.28.1 ~> 4.28.2], `@semcore/core` [2.25.1 ~> 2.25.2]).
+
+## [5.35.6] - 2024-05-31
+
+### Fixed
+
+- Programmatically opened popper were getting `tabIndex={0}` even without focusable elements inside.
+
 ## [5.35.5] - 2024-05-31
 
 ### Fixed

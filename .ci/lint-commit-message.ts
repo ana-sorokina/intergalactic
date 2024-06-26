@@ -2,18 +2,12 @@
 
 import fs from 'fs/promises';
 import pc from 'picocolors';
+import { allowedScopes } from '../tools/continuous-delivery/src/utils/allowedScopes';
 
 const commitMessageFilePath = [...process.argv].pop();
 const commitMessage = await fs.readFile(commitMessageFilePath, 'utf-8');
 
 const commitTitle = commitMessage.split('\n')[0];
-
-const filterFsEntries = (scopeName: string) =>
-  !scopeName.startsWith('.') && !scopeName.startsWith('@');
-const semcoreComponents = (await fs.readdir('./semcore')).filter(filterFsEntries);
-const toolsComponents = (await fs.readdir('./tools')).filter(filterFsEntries);
-const specialScopes = ['global', 'chore', 'ci', 'website', 'docs', 'tests'];
-const allowedScopes = [...specialScopes, ...semcoreComponents, ...toolsComponents];
 
 const outputError = (message: string) => {
   // biome-ignore lint/suspicious/noConsoleLog:
@@ -61,8 +55,8 @@ if (commitTitle.includes('][')) {
   description = commitTitle.substring(commitTitle.indexOf('] ') + 3);
 }
 
-if (taskId && taskId.length !== 9) {
-  outputError(`Got task id "${taskId}" in message while it's expected to be 9 characters long`);
+if (taskId && (taskId.length < 7 || taskId.length > 9)) {
+  outputError(`Got task id "${taskId}" in message while it's expected to be 7-9 characters long`);
 }
 
 if (!scope) {
@@ -73,10 +67,13 @@ if (!description) {
   outputError('Got empty description in message of format "[scope] change description"');
 }
 
+const { specialScopes, semcoreComponents, toolsComponents } = await allowedScopes();
+const allAllowedScopes = [...specialScopes, ...semcoreComponents, ...toolsComponents];
+
 const allProvidedScopes = scope.includes(',')
   ? scope.split(',').map((scope) => scope.trim())
   : [scope];
-const unknownScope = allProvidedScopes.find((scope) => !allowedScopes.includes(scope));
+const unknownScope = allProvidedScopes.find((scope) => !allAllowedScopes.includes(scope));
 
 if (unknownScope) {
   outputError(

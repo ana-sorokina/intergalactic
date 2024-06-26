@@ -7,19 +7,17 @@ const manager = new NoticeBubbleManager();
 
 const Demo = () => {
   const handleClick = () => {
-    manager.add({
+    const { focus } = manager.add({
       children: 'Data for 5 new profiles is ready. Please reload the page to view it.',
       action: (
-        <Button theme='invert'>
-          <Button.Addon>
-            <ReloadM />
-          </Button.Addon>
-          <Button.Text>Reload the page</Button.Text>
+        <Button theme='invert' addonLeft={ReloadM}>
+          Reload the page
         </Button>
       ),
       initialAnimation: true,
-      duration: 3000,
+      duration: 0,
     });
+    focus();
   };
 
   return (

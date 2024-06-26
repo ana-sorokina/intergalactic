@@ -2,6 +2,36 @@
 
 CHANGELOG.md standards are inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0/).
 
+## [4.47.0] - 2024-06-26
+
+### Changed
+
+- Version minor update due to children dependencies update (`@semcore/utils` [4.29.0 ~> 4.30.0], `@semcore/base-trigger` [4.38.0 ~> 4.39.0], `@semcore/button` [5.30.0 ~> 5.31.0], `@semcore/icon` [4.38.0 ~> 4.39.1], `@semcore/checkbox` [7.31.0 ~> 7.32.0], `@semcore/core` [2.26.0 ~> 2.27.0]).
+
+## [4.46.6] - 2024-06-14
+
+### Changed
+
+- Version patch update due to children dependencies update (`@semcore/dropdown` [4.32.0 ~> 4.32.2]).
+
+## [4.46.5] - 2024-06-13
+
+### Fixed
+
+- Show popover with error message only for opened or focused `DatePicker`.
+
+## [4.46.4] - 2024-06-12
+
+### Changed
+
+- Version patch update due to children dependencies update (`@semcore/utils` [4.28.1 ~> 4.28.2], `@semcore/base-trigger` [4.37.1 ~> 4.37.2], `@semcore/button` [5.29.0 ~> 5.29.1], `@semcore/icon` [4.36.1 ~> 4.37.0], `@semcore/checkbox` [7.30.1 ~> 7.30.2], `@semcore/core` [2.25.1 ~> 2.25.2]).
+
+## [4.46.3] - 2024-06-07
+
+### Changed
+
+- Version patch update due to children dependencies update (`@semcore/button` [5.28.1 ~> 5.29.0], `@semcore/input` [4.28.1 ~> 4.28.2], `@semcore/tooltip` [6.34.1 ~> 6.34.3]).
+
 ## [4.46.2] - 2024-05-30
 
 ### Fixed

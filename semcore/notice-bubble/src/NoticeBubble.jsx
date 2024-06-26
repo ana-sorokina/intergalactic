@@ -13,8 +13,11 @@ import { localizedMessages } from './translations/__intergalactic-dynamic-locale
 import i18nEnhance from '@semcore/utils/lib/enhances/i18nEnhance';
 import { useCssVariable } from '@semcore/utils/lib/useCssVariable';
 import { contextThemeEnhance } from '@semcore/utils/lib/ThemeProvider';
+import Button from '@semcore/button';
+import { useFocusLock } from '@semcore/utils/lib/use/useFocusLock';
 
 import style from './style/notice-bubble.shadow.css';
+import { forkRef, useForkRef } from '@semcore/utils/lib/ref';
 
 const Notices = (props) => {
   const { styles, data = [], tag: SView = ViewInfo } = props;
@@ -55,10 +58,10 @@ class NoticeBubbleContainerRoot extends Component {
     warnings: [],
   };
 
-  constructor(props) {
-    super(props);
-    props.manager.counter = 0;
-    this._unsubscribe = props.manager.addListener(this.handleChange);
+  componentDidMount() {
+    const { manager } = this.asProps;
+    manager.counter = 0;
+    this._unsubscribe = manager.addListener(this.handleChange);
   }
 
   componentWillUnmount = () => {
@@ -81,7 +84,14 @@ class NoticeBubbleContainerRoot extends Component {
 
     return sstyled(styles)(
       <Portal disablePortal={disablePortal}>
-        <SNoticeBubble render={Box} role='alert' aria-live='assertive' ref={ref}>
+        <SNoticeBubble
+          render={Box}
+          ref={ref}
+          tag='section'
+          role='region'
+          aria-live='polite'
+          aria-label={getI18nText('notification')}
+        >
           <Children />
           <Notices styles={styles} data={warnings} tag={ViewWarning} getI18nText={getI18nText} />
           <Notices styles={styles} data={notices} tag={ViewInfo} getI18nText={getI18nText} />
@@ -91,18 +101,30 @@ class NoticeBubbleContainerRoot extends Component {
   }
 }
 
+const FocusLock = React.forwardRef((props, outerRef) => {
+  const { focusLock, ...other } = props;
+  const innerRef = React.useRef();
+  useFocusLock(innerRef, false, 'auto', !focusLock, true);
+  const ref = useForkRef(outerRef, innerRef);
+
+  return <Flex ref={ref} {...other} />;
+});
+
 class ViewInfo extends Component {
   timer = null;
+  ref = React.createRef();
 
   componentDidMount() {
     const { duration } = this.props;
     if (duration) {
-      this.timer = new Timer(this.handlerClose, duration);
+      this.timer = new Timer(this.handleClose, duration);
+      document.body.addEventListener('mousemove', this.handleBodyMouseMove);
     }
   }
 
   componentWillUnmount() {
     this.clearTimer();
+    document.body.removeEventListener('mousemove', this.handleBodyMouseMove);
   }
 
   clearTimer() {
@@ -112,27 +134,37 @@ class ViewInfo extends Component {
     }
   }
 
-  handlerClose = (e) => {
-    // because call not only click
+  handleClose = (e) => {
+    // because it might be called not only from the close icon click
     fire(this, 'onClose', e);
     this.clearTimer();
   };
 
-  handlerMouseEnter = () => {
-    if (this.timer) {
-      this.timer.pause();
-    }
+  handleMouseEnter = () => {
+    if (!this.timer) return;
+    this.timer.pause();
   };
 
-  handlerMouseLeave = () => {
-    if (this.timer) {
-      this.timer.resume();
-    }
+  handleMouseLeave = () => {
+    if (!this.timer) return;
+    this.timer.resume();
+  };
+
+  handleBodyMouseMove = (event) => {
+    if (!this.timer?.paused) return;
+    const rect = this.ref.current.getBoundingClientRect();
+    const mouseInRect =
+      event.clientX >= rect.left &&
+      event.clientX <= rect.right &&
+      event.clientY >= rect.top &&
+      event.clientY <= rect.bottom;
+    if (mouseInRect) return;
+    this.timer.resume();
   };
 
   render() {
-    const SBubble = Flex;
-    const SDismiss = 'button';
+    const SBubble = FocusLock;
+    const SDismiss = Button;
     const SContent = Flex;
     const SMessage = 'div';
     const SAction = 'div';
@@ -145,22 +177,23 @@ class ViewInfo extends Component {
       icon,
       children,
       action: actionNode,
+      type,
       ...other
     } = this.props;
 
     return sstyled(styles)(
       <SBubble
-        role='alert'
         {...other}
-        ref={forwardRef}
-        onMouseEnter={callAllEventHandlers(onMouseEnter, this.handlerMouseEnter)}
-        onMouseLeave={callAllEventHandlers(onMouseLeave, this.handlerMouseLeave)}
+        ref={forkRef(forwardRef, this.ref)}
+        onMouseEnter={callAllEventHandlers(onMouseEnter, this.handleMouseEnter)}
+        onMouseLeave={callAllEventHandlers(onMouseLeave, this.handleMouseLeave)}
       >
         <SDismiss
           type='button'
-          title={getI18nText('close')}
-          onClick={this.handlerClose}
+          use='tertiary'
+          theme='muted'
           aria-label={getI18nText('close')}
+          onClick={this.handleClose}
         >
           <CloseIcon />
         </SDismiss>
@@ -173,7 +206,7 @@ class ViewInfo extends Component {
             </SContent>
           </>
         ) : (
-          <SContent>
+          <SContent role={type === 'warning' ? 'alert' : undefined}>
             <SMessage>{children}</SMessage>
             {isNode(actionNode) ? <SAction>{actionNode}</SAction> : null}
           </SContent>

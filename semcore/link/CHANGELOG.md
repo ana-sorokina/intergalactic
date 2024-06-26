@@ -2,6 +2,30 @@
 
 CHANGELOG.md standards are inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0/).
 
+## [5.33.0] - 2024-06-26
+
+### Changed
+
+- Version minor update due to children dependencies update (`@semcore/utils` [4.29.0 ~> 4.30.0], `@semcore/flex-box` [5.28.0 ~> 5.29.0], `@semcore/core` [2.26.0 ~> 2.27.0]).
+
+## [5.32.0] - 2024-06-13
+
+### Changed
+
+- Version minor update due to children dependencies update (`@semcore/utils` [4.28.2 ~> 4.29.0], `@semcore/flex-box` [5.27.2 ~> 5.28.0], `@semcore/core` [2.25.2 ~> 2.26.0]).
+
+## [5.31.1] - 2024-06-12
+
+### Changed
+
+- Version patch update due to children dependencies update (`@semcore/utils` [4.28.1 ~> 4.28.2], `@semcore/flex-box` [5.27.1 ~> 5.27.2], `@semcore/core` [2.25.1 ~> 2.25.2]).
+
+## [5.31.0] - 2024-05-30
+
+### Added
+
+- `Hint` for Link with addon and without text.
+
 ## [5.30.1] - 2024-05-28
 
 ### Changed

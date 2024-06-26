@@ -13,7 +13,6 @@ import style from './style/tooltip.shadow.css';
 const Popper = PopperOrigin[CREATE_COMPONENT]();
 
 const defaultProps = {
-  theme: 'default',
   placement: 'top',
   interaction: 'hover',
   timeout: [100, 50],
@@ -36,7 +35,8 @@ class TooltipRoot extends Component {
   subcomponents = [Tooltip.Trigger.displayName, Tooltip.Popper.displayName];
   defaultChildren = (title, Children, props) => (
     <>
-      <Tooltip.Trigger {...props}>
+      {/* biome-ignore lint/a11y/useValidAriaValues: */}
+      <Tooltip.Trigger {...props} aria-haspopup={undefined}>
         <Children />
       </Tooltip.Trigger>
       <Tooltip.Popper>{title}</Tooltip.Popper>
@@ -45,7 +45,12 @@ class TooltipRoot extends Component {
 
   uncontrolledProps() {
     return {
-      visible: null,
+      visible: [
+        null,
+        (visible) => {
+          this.handlePopperVisibleChange?.(visible);
+        },
+      ],
     };
   }
 
@@ -56,6 +61,7 @@ class TooltipRoot extends Component {
     return {
       'aria-describedby': popperId,
       popperId,
+      role: undefined,
     };
   }
 
@@ -68,6 +74,7 @@ class TooltipRoot extends Component {
       ignorePortalsStacking,
       interaction,
       resolveColor,
+      visible,
     } = this.asProps;
 
     let ariaLive = theme === 'warning' ? 'assertive' : 'polite';
@@ -84,6 +91,7 @@ class TooltipRoot extends Component {
       resolveColor,
       role: 'tooltip',
       'aria-live': ariaLive,
+      visible,
     };
   }
 
@@ -99,7 +107,7 @@ class TooltipRoot extends Component {
     );
 
     return (
-      <Root render={Popper} onVisibleChange={this.handlePopperVisibleChange}>
+      <Root render={Popper}>
         {advancedMode ? <Children /> : this.defaultChildren(title, Children, other)}
       </Root>
     );
@@ -119,6 +127,7 @@ function TooltipTrigger(props) {
 
 function TooltipPopper(props) {
   const {
+    visible,
     Children,
     styles,
     theme,
@@ -127,10 +136,31 @@ function TooltipPopper(props) {
     ignorePortalsStacking,
     'aria-live': ariaLive,
     zIndex,
+    role,
   } = props;
   const STooltip = Root;
   const SArrow = Box;
   const STooltipPortalledWrapper = Box;
+
+  const popperRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (role === 'dialog' && visible && process.env.NODE_ENV !== 'production') {
+      const hasTitle = (node) => {
+        if (node.hasAttribute('aria-label')) return true;
+        if (node.hasAttribute('aria-labelledby')) return true;
+        if (node.hasAttribute('title')) return true;
+
+        return false;
+      };
+
+      logger.warn(
+        popperRef.current && !hasTitle(popperRef.current),
+        `'title' or 'aria-label' or 'aria-labelledby' are required props`,
+        props['data-ui-name'] || DescriptionTooltipRoot.Popper.displayName,
+      );
+    }
+  }, [visible, role]);
 
   return sstyled(styles)(
     <Portal disablePortal={disablePortal} ignorePortalsStacking={ignorePortalsStacking}>
@@ -140,6 +170,7 @@ function TooltipPopper(props) {
           use:disablePortal
           use:theme={resolveColor(theme)}
           use:aria-live={undefined}
+          ref={popperRef}
         >
           <Children />
           <SArrow data-popper-arrow use:theme={resolveColor(theme)} />
@@ -160,7 +191,8 @@ class HintRoot extends TooltipRoot {
   subcomponents = [Hint.Trigger.displayName, Hint.Popper.displayName];
   defaultChildren = (title, Children, props) => (
     <>
-      <Hint.Trigger {...props}>
+      {/* biome-ignore lint/a11y/useValidAriaValues: */}
+      <Hint.Trigger {...props} aria-haspopup={undefined}>
         <Children />
       </Hint.Trigger>
       <Hint.Popper>{title}</Hint.Popper>
@@ -200,10 +232,10 @@ class DescriptionTooltipRoot extends TooltipRoot {
   subcomponents = [DescriptionTooltip.Trigger.displayName, DescriptionTooltip.Popper.displayName];
   defaultChildren = (title, Children, props) => (
     <>
-      <Hint.Trigger {...props}>
+      <DescriptionTooltip.Trigger {...props} aria-haspopup='dialog'>
         <Children />
-      </Hint.Trigger>
-      <Hint.Popper>{title}</Hint.Popper>
+      </DescriptionTooltip.Trigger>
+      <DescriptionTooltip.Popper>{title}</DescriptionTooltip.Popper>
     </>
   );
   handlePopperVisibleChange = (visible) => {
@@ -225,11 +257,12 @@ class DescriptionTooltipRoot extends TooltipRoot {
   };
 
   getTriggerProps() {
+    const { disabled, visible } = this.asProps;
     const props = super.getTriggerProps();
     return {
       ...props,
-      'aria-haspopup': !(this.asProps.disabled || props.disabled),
-      'aria-expanded': this.asProps.visible,
+      'aria-haspopup': !(disabled || props.disabled) ? 'dialog' : 'false',
+      'aria-expanded': visible,
       'aria-describedby': undefined,
       onKeyDown: this.handleTriggerKeyDown,
     };
@@ -240,6 +273,8 @@ class DescriptionTooltipRoot extends TooltipRoot {
     return {
       ...props,
       ref: this.popperRef,
+      role: 'dialog',
+      tabIndex: 0,
     };
   }
 }

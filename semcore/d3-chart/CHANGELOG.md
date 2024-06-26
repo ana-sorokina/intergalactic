@@ -2,6 +2,43 @@
 
 CHANGELOG.md standards are inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0/).
 
+## [3.48.0] - 2024-06-19
+
+### Added
+
+- `onClick` handler for `HoverRect.Tooltip`.
+- `onClickHoverRect` and `onClickBar` handlers for `Chart.Bar`.
+- `barIndex` and `barKey` values for `onClick` handler for `Bar` and `HorizontalBar`.
+
+## [3.47.1] - 2024-06-14
+
+### Changed
+
+- Version patch update due to children dependencies update (`@semcore/popper` [5.36.0 ~> 5.36.1]).
+
+## [3.47.0] - 2024-06-13
+
+### Changed
+
+- Version minor update due to children dependencies update (`@semcore/animation` [2.27.2 ~> 2.28.0], `@semcore/utils` [4.28.2 ~> 4.29.0], `@semcore/core` [2.25.2 ~> 2.26.0]).
+
+## [3.46.1] - 2024-06-12
+
+### Changed
+
+- Version patch update due to children dependencies update (`@semcore/animation` [2.27.1 ~> 2.27.2], `@semcore/utils` [4.28.1 ~> 4.28.2], `@semcore/core` [2.25.1 ~> 2.25.2]).
+
+## [3.46.0] - 2024-05-29
+
+### Added
+
+- `ReferenceStripes` component.
+- `ReferenceBackground` component (previously `ReferenceLine.Background`).
+
+### Changed
+
+- `ReferenceLine.Background` deprecated in favor of `ReferenceBackground`.
+
 ## [3.45.2] - 2024-05-31
 
 ### Changed

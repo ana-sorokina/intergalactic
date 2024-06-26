@@ -7,7 +7,7 @@ const manager = new NoticeBubbleManager();
 
 const Demo = () => {
   const handleClick = () => {
-    manager.add({
+    const { focus } = manager.add({
       children: (
         <>
           Link was moved to <Link href='#'>Cats from outer space group</Link>
@@ -15,8 +15,9 @@ const Demo = () => {
       ),
       action: <Button theme='invert'>Undo</Button>,
       initialAnimation: true,
-      duration: 3000,
+      duration: 0,
     });
+    focus();
   };
 
   return (

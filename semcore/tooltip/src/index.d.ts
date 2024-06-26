@@ -1,5 +1,5 @@
 import React from 'react';
-import { Intergalactic, UnknownProperties } from '@semcore/core';
+import { Intergalactic, UnknownProperties } from '@semcore/utils/lib/core';
 import Popper, {
   PopperContext,
   PopperProps,
@@ -22,15 +22,12 @@ export type TooltipProps = Intergalactic.InternalTypings.EfficientOmit<PopperPro
     theme?: 'default' | 'warning' | 'invert';
 
     /**
-     * Tooltip should have only one interaction - `hover`. You shouldn't use it with another interactions.
-     * We'll delete this prop in next major release.
+     * Hover interaction means that popper will be shown on mouse hover or keyboard focus.
+     * Click interactions means that popper will be shown on mouse click or keyboard Space/Enter keydown.
+     * Focus interaction means that popper will be shown on mouse or keyboard focus.
+     * @default hover
      */
-    interaction?:
-      | 'hover'
-      | 'click' /** @deprecated */
-      | 'focus' /** @deprecated */
-      | 'none' /** @deprecated */
-      | eventInteraction /** @deprecated */;
+    interaction?: 'hover' | 'click' | 'focus' | 'none' | eventInteraction;
   };
 
 export type TooltipTriggerContext = PopperContext & {
@@ -58,13 +55,7 @@ export type TooltipHintProps = Intergalactic.InternalTypings.EfficientOmit<
      * Tooltip theme. You can use the default themes or create your own
      * @default default
      */
-    theme?: 'default' | 'warning' | 'invert';
-
-    /**
-     * Tooltip should have only one interaction - `hover`. You shouldn't use it with another interactions.
-     * We'll delete this prop in next major release.
-     */
-    interaction?: 'hover' | 'focus';
+    theme?: 'default' | 'invert';
   };
 export type TooltipHintPopperProps = Intergalactic.InternalTypings.EfficientOmit<
   HintProps,
@@ -93,10 +84,30 @@ export type DescriptionTooltipProps = Intergalactic.InternalTypings.EfficientOmi
     theme?: 'default' | 'warning' | 'invert';
 
     /**
-     * Tooltip should have only one interaction - `hover`. You shouldn't use it with another interactions.
-     * We'll delete this prop in next major release.
+     * Hover interaction means that popper will be shown on mouse hover or keyboard focus.
+     * Click interactions means that popper will be shown on mouse click or keyboard Space/Enter keydown.
+     * @default click
      */
     interaction?: 'hover' | 'click';
+  };
+
+/**
+ * DescriptionTooltipPopper must have an accessible name (aria-dialog-name).
+ * It should describe popper content.
+ */
+type DescriptionTooltipPopperAriaProps = Intergalactic.RequireAtLeastOne<{
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
+  title?: string;
+}>;
+
+export type DescriptionTooltipPopperProps = DescriptionTooltipProps &
+  DescriptionTooltipPopperAriaProps & {
+    /**
+     * Popper in DescriptionTooltip should have role `dialog`.
+     * @default 'dialog'
+     */
+    role?: 'dialog';
   };
 
 declare const DescriptionTooltip: Intergalactic.Component<
@@ -105,7 +116,7 @@ declare const DescriptionTooltip: Intergalactic.Component<
   TooltipTriggerContext
 > & {
   Trigger: Intergalactic.Component<'div', PopperTriggerProps, TooltipTriggerContext>;
-  Popper: Intergalactic.Component<'div', DescriptionTooltipProps, TooltipContext>;
+  Popper: Intergalactic.Component<'div', DescriptionTooltipPopperProps, TooltipContext>;
 };
 
 export default Tooltip;

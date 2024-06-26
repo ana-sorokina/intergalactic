@@ -213,7 +213,7 @@ describe('DropdownMenu', () => {
   });
 
   test.concurrent('highlights selected item', async ({ expect }) => {
-    let highlightedIndex: number | undefined = undefined;
+    let highlightedIndex: number | null = null;
 
     const component = render(
       <DropdownMenu
@@ -237,6 +237,28 @@ describe('DropdownMenu', () => {
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 1));
     await expect(highlightedIndex).toBe(2);
+  });
+  test.sequential("doesn't autofocus trigger when closed on just rerender", async ({ expect }) => {
+    const Component = () => {
+      return (
+        <DropdownMenu>
+          <DropdownMenu.Trigger tag='button' data-testid='dd-button-trigger'>
+            Trigger
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Menu>
+            <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+            <DropdownMenu.Item selected>Item 3</DropdownMenu.Item>
+          </DropdownMenu.Menu>
+        </DropdownMenu>
+      );
+    };
+    const component = render(<Component />);
+
+    await new Promise((resolve) => setTimeout(resolve, 1));
+    component.rerender(<Component />);
+    await new Promise((resolve) => setTimeout(resolve, 1));
+    expect(component.getByTestId('dd-button-trigger')).not.toHaveFocus();
   });
   test.sequential('arrows open/close', async ({ expect }) => {
     let visible = undefined;
@@ -262,7 +284,7 @@ describe('DropdownMenu', () => {
     expect(visible).toBe(false);
   });
   test.sequential('focus lock highlites next item on focus out', async ({ expect }) => {
-    let highlightedIndex: number | undefined = undefined;
+    let highlightedIndex: number | null = null;
     const { getByTestId } = render(
       <DropdownMenu
         placement='right'

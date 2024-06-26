@@ -1,3 +1,204 @@
+## [15.97.0] - 2024-06-26
+
+### @semcore/breadcrumbs
+
+- **Fixed** `box-shadow` displaying on focused item.
+
+### @semcore/d3-chart
+
+- **Added** `onClick` handler for `HoverRect.Tooltip`.
+- **Added** `onClickHoverRect` and `onClickBar` handlers for `Chart.Bar`.
+- **Added** `barIndex` and `barKey` values for `onClick` handler for `Bar` and `HorizontalBar`.
+
+### @semcore/data-table
+
+- **Added** `catch` for errors in animation promises in headers.
+- **Added** Possibility to pass `scrollContainerRef` property to `Datatable.Body` and set it to a real table body container - `Scroll.Containter`.
+
+### @semcore/dropdown-menu
+
+- **Fixed** `highlightedIndex` type wasn't accepting `null`.
+
+### @semcore/ellipsis
+
+- **Fixed** Incorrect calculation of text width with font settings: `font-feature-settings` or `font-variant-numeric`.
+
+### @semcore/icon
+
+- **Changed** `Report`, `PopularProducts`, `AddressPack`, `ChatQuestion` icons according to our icon design guidelines.
+- **Added** New `OrganicCarousel`, `PopularStores` and `QuestionsAnswers` icons.
+
+### @semcore/notice
+
+- **Changed** Notice with `warning` and `danger` themes now has aria-label "Critical Notification" (other teams has "Notification" as before).
+- **Added** `muted` theme support.
+
+### @semcore/notice-bubble
+
+- **Added** Notice bubble manager `.add()` method now returns `ref` and `focus()`.
+
+### @semcore/notice-global
+
+- **Changed** Notice with `warning` and `danger` themes now has aria-label "Critical Notification" (other teams has "Notification" as before).
+- **Changed** Close button aria-label now is "Close Notification" instead of "Close".
+
+### @semcore/pagination
+
+- **Changed** Hide `Addon` with confirmation icon in pagination input.
+
+### @semcore/skeleton
+
+- **Fixed** Error about `foreignObject` on elements other than `svg`.
+
+### @semcore/utils
+
+- **Added** Utility type `RequireAtLeastOne` in Intergalactic namespace.
+
+## [15.96.1] - 2024-06-14
+
+### @semcore/dropdown
+
+- **Fixed** Dropdown with any `interaction` except `none` should be opened by pressing `Enter` or `Space`.
+- **Fixed** Dropdown with `interaction='none'` shouldn't be opened by pressing `Enter` or `Space`.
+
+### @semcore/popper
+
+- **Added** Possibility to open `focusable` popper by click on it (if the trigger is already focused).
+
+## [15.96.0] - 2024-06-13
+
+### @semcore/counter
+
+- **Fixed** Using `theme` property with typed values instead of css-variables.
+
+### @semcore/data-table
+
+- **Fixed** Incorrect display of `ScrollArea.Bar` after reducing the parent size.
+
+### @semcore/date-picker
+
+- **Fixed** Show popover with error message only for opened or focused `DatePicker`.
+
+### @semcore/feature-popover
+
+- **Changed** style for `FeaturePopover.Spot` background-color from `--intergalactic-bg-highlight-results` to `--intergalactic-feature-popover-dot-outer-border`.
+
+### @semcore/notice
+
+- **Fixed** Now `string` is not an allowed value for theme prop.
+
+### @semcore/notice-global
+
+- **Changed** Role from `status` to `region`.
+- **Fixed** Now `string` is not an allowed value for theme prop.
+
+### @semcore/utils
+
+- **Changed** value for `--intergalactic-feature-popover-dot-outer-border` token.
+
+## [15.95.0] - 2024-06-12
+
+### @semcore/carousel
+
+- **Fixed** Display of zoomed item after transition from the last item to the first one in the cyclic scroll.
+
+### @semcore/dropdown-menu
+
+- **Fixed** DropdownMenu was getting unexpected autofocus if nothing else on page is focused.
+
+### @semcore/feedback-form
+
+- **Fixed** `aria-label` for the `Notice` in `FeedbackRating`.
+
+### @semcore/icon
+
+- **Changed** `Facebook` icon according to the latest Facebook logo guidelines.
+
+### @semcore/notice-bubble
+
+- **Fixed** Fixed case when `NoticeBubble` was resized and mouse left it without any mouse move so `NoticeBubble` didn't hide automatically.
+
+### @semcore/switch
+
+- **Changed** Set as deprecated `hidden` property on Switch.Addon to avoid use two `Addons` in `Switch`.
+- **Removed** `aria-checked` from Switch.Value.
+- **Removed** `aria-labelledby` from Switch.Value.
+- **Removed** `aria-hidden` from Switch.Addon.
+
+### @semcore/utils
+
+- **Fixed** errors in imports with `intergalactic/utils/lib/*`.
+
+## [15.94.1] - 2024-06-10
+
+### @semcore/scroll-area
+
+- **Fixed** Auto resizing for `ScrollArea` should work only if pass prop `wMax` or `hMax` to the container.
+
+## [15.94.0] - 2024-06-07
+
+### @semcore/breadcrumbs
+
+- **Changed** Added `nav` tag for breadcrumbs container.
+- **Changed** Added default `a` tag for breadcrumb item.
+- **Changed** Wrapped breadcrumb items in an `ol` list.
+
+### @semcore/button
+
+- **Added** `Hint` for Button with addon and without text.
+
+### @semcore/card
+
+- **Changed** `Tooltip` to `DescriptionTooltip` for hints in card title.
+
+### @semcore/carousel
+
+- **Fixed** Button styles because DOM for `Button` with only addons has been changed.
+
+### @semcore/d3-chart
+
+- **Added** `ReferenceStripes` component.
+- **Added** `ReferenceBackground` component (previously `ReferenceLine.Background`).
+- **Changed** `ReferenceLine.Background` deprecated in favor of `ReferenceBackground`.
+
+### @semcore/feedback-form
+
+- **Fixed** Children type for `FeedbackForm.Item`.
+
+### @semcore/fullscreen-modal
+
+- **Changed** Tag for `FullscreenModal.Section` is `section` instead of `div`.
+
+### @semcore/input
+
+- **Fixed** Type definition for Input's `placeholder` prop.
+
+### @semcore/input-number
+
+- **Fixed** Incorrect increment/dicrement in formatted Number Inputs.
+- **Fixed** Removed onChange handler call for the value that ends with `-` and `.` as in native input with `type="number"`.
+
+### @semcore/link
+
+- **Added** `Hint` for Link with addon and without text.
+
+### @semcore/popper
+
+- **Fixed** Programmatically opened popper were getting `tabIndex={0}` even without focusable elements inside.
+
+### @semcore/scroll-area
+
+- **Added** Auto resizing for `ScrollArea` if the parent element changes its size.
+
+### @semcore/tooltip
+
+- **Fixed** Merging tooltip with Button component was breaking the button styles.
+- **Fixed** Removed `aria-haspopup` and `role` from triggers of `Hint` and `Tooltip`.
+- **Fixed** Removed `interaction` property from types of `Hint`.
+- **Fixed** Removed warning theme from types of `Hint`.
+- **Changed** `aria-haspopup` of `DescriptionTooltip` changed to `dialog`.
+- **Fixed** `DescriptionTooltip` default children.
+
 ## [15.93.0] - 2024-05-31
 
 ### @semcore/feedback-form
