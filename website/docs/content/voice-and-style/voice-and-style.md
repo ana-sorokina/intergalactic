@@ -21,8 +21,9 @@ Voice varies depending on a pattern:
 
 ## Capitalization
 
-Use sentence case by default for all elements. It's easier to read and is more natural and approachable.
+### Title case
 
+With this type of case, all words are capitalized, except for minor words that aren't the first or last word of the title.  
 Only use title case for:
 
 - Page titles (H1)
@@ -48,6 +49,107 @@ Only use title case for:
 - Prepositions (under 4 letters): for, with, to, in, on, at
 - Conjunctions: and, or, but
 - "To" in an infinitive
+
+### Sentence case
+
+Use sentence case by default for all elements. It's easier to read and is more natural and approachable.
+
+* Modal window titles
+
+<!-- vale DevDocs.Contractions = NO -->
+<DosDontsCopy>
+    <template #dont>
+      <img src="./static/modal-dont.png" style="margin: auto; border-radius: 0;" alt="A modal window with a capitalized title 'Delete Selected Files?', a subtitle 'They cannot be restored.', and buttons 'Delete' and 'Cancel'." />
+    </template>
+    <template #do>
+      <img src="./static/modal-do.png" style="margin: auto; border-radius: 0;" alt="A modal window with a non-capitalized title 'Delete Selected Files?', a subtitle 'They cannot be restored.', and buttons 'Delete' and 'Cancel'." />
+    </template>
+</DosDontsCopy>
+<!-- vale DevDocs.Contractions = YES -->
+
+* Notice titles
+
+<!-- vale DevDocs.Please = NO -->
+<DosDontsCopy>
+    <template #dont>
+      <img src="./static/notice-dont.png" style="margin: auto; border-radius: 0;" alt="A notice with capitalized title 'Your Subscription Has Expired' and body text 'To unlock your projects, please upgrade your subscription.'" />
+    </template>
+    <template #do>
+      <img src="./static/notice-do.png" style="margin: auto; border-radius: 0;" alt="A notice with a non-capitalized title 'Your Subscription Has Expired' and body text 'To unlock your projects, please upgrade your subscription.'" />
+    </template>
+</DosDontsCopy>
+<!-- vale DevDocs.Please = YES -->
+
+* Buttons
+
+<DosDontsCopy>
+    <template #dont>
+      <img src="./static/button-dont.png" style="margin: auto; width: 140px; border-radius: 0;" alt="A button with capitalized text 'Your Bad Button'" />
+     </template>
+    <template #do>
+      <img src="./static/button-do.png" style="margin: auto; width: 140px;border-radius: 0;" alt="A button with non-capitalized text 'Good button'" />
+    </template>
+</DosDontsCopy>
+
+* Field labels
+* Checkboxes
+
+<DosDontsCopy>
+    <template #dont>
+      <img src="./static/label-dont.png" style="margin: 0 auto 16px; border-radius: 0" alt="A field label element with capitailized text 'Email Address'" />
+      </template>
+    <template #do>
+      <img src="./static/label-do.png" style="margin: 0 auto 16px; border-radius: 0" alt="A field label element with non-capitailized text 'Email Address'" />
+    </template>
+</DosDontsCopy>
+
+* Menus
+* Dropdown items
+
+<DosDontsCopy>
+    <template #dont>
+      <img src="./static/menu-dont.png" style="margin: auto" alt="A menu list with capitalized text 'My profile, Subscription info, Log out'" />
+    </template>
+    <template #do>
+      <img src="./static/menu-do.png" style="margin: auto" alt="A menu list with non-capitalized text 'My profile, Subscription info, Log out'" />
+    </template>
+</DosDontsCopy>
+
+* Tags
+
+<DosDontsCopy>
+    <template #dont>
+      <img src="./static/tag-dont.png" style="margin: auto; width: 90px;" alt="A tag element with capitalized text 'Add tag'" />
+    </template>
+    <template #do>
+      <img src="./static/tag-do.png" style="margin: auto; width: 90px;" alt="A tag element with non-capitalized text 'Add tag'" />
+    </template>
+</DosDontsCopy>
+
+* Links
+
+<DosDontsCopy>
+    <template #dont>
+      <p><span style="color: var(--intergalactic-text-link)">Contact Us</span></p>
+    </template>
+    <template #do>
+      <p><span style="color: var(--intergalactic-text-link)">Contact us</span></p>
+    </template>
+</DosDontsCopy>
+
+* Bulleted and numbered lists
+
+<DosDontsCopy>
+    <template #dont>
+      <img src="./static/list-dont.png" style="margin: auto" alt="A menu list with capitalized text 'My profile, Subscription info, Log out'" />
+    </template>
+    <template #do>
+      <img src="./static/list-do.png" style="margin: auto" alt="A menu list with non-capitalized text 'My profile, Subscription info, Log out'" />
+    </template>
+</DosDontsCopy>
+
+* Filter names (including filters in the report headers)
+* Company business units (Marketing department, R&D unit)
 
 ### Semrush product names
 
