@@ -101,7 +101,6 @@ Good examples: Save draft, Publish article, Delete account.
     </template>
     <template #do>
         <p>Please tell us what you think about Position Tracking.</p>
-        <p>Add keywords to start tracking them.</p>
     </template>
 </DosDontsCopy>
 
@@ -146,10 +145,10 @@ Good examples: Save draft, Publish article, Delete account.
 
 <DosDontsCopy>
     <template #dont>
-        Enter the confirmation code to delete your account: 4872
+        Enter the confirmation <b>code</b> to delete your account: <b>4872</b>
     </template>
     <template #do>
-        To delete your account, enter the confirmation code: 4872
+        To delete your account, enter the confirmation <b>code</b>: <b>4872</b>
     </template>
 </DosDontsCopy>
 
